@@ -49,3 +49,18 @@ function tambah_tugas() {
   echo -e "${GREEN}Tugas berhasil ditambahkan.${NC}"
 }
 
+# Fungsi melihat tugas
+function lihat_tugas() {
+  if [[ ${#tugas_list[@]} -eq 0 ]]; then
+    echo -e "${YELLOW}Belum ada tugas yang ditambahkan.${NC}"
+    return
+  fi
+
+  echo -e "${CYAN}Daftar Tugas:${NC}"
+  for i in "${!tugas_list[@]}"; do
+    echo "$((i+1)). ${tugas_list[$i]} - ${status_list[$i]}"
+  done
+}
+
+
+
