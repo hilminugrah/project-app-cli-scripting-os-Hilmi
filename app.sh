@@ -62,5 +62,47 @@ function lihat_tugas() {
   done
 }
 
+# Fungsi hapus tugas
+function hapus_tugas() {
+  lihat_tugas
+  if [[ ${#tugas_list[@]} -eq 0 ]]; then
+    return
+  fi
+  read -p "Masukkan nomor tugas yang akan dihapus: " index
+  ((index--)) # karena array mulai dari 0
+
+  if [[ "$index" -lt 0 || "$index" -ge "${#tugas_list[@]}" ]]; then
+    echo -e "${RED}Nomor tugas tidak valid.${NC}"
+    return
+  fi
+
+  unset 'tugas_list[index]'
+  unset 'status_list[index]'
+  # Reindexing array
+  tugas_list=("${tugas_list[@]}")
+  status_list=("${status_list[@]}")
+  echo -e "${GREEN}Tugas berhasil dihapus.${NC}"
+}
+
+# Fungsi menghitung statistik
+function statistik_tugas() {
+  total=${#tugas_list[@]}
+  selesai=0
+  belum=0
+
+  for status in "${status_list[@]}"; do
+    if [[ "$status" == "selesai" ]]; then
+      ((selesai++))
+    else
+      ((belum++))
+    fi
+  done
+
+  echo -e "${CYAN}Statistik Tugas:${NC}"
+  echo "Total Tugas   : $total"
+  echo "Tugas Selesai : $selesai"
+  echo "Tugas Belum   : $belum"
+}
+
 
 
