@@ -104,5 +104,22 @@ function statistik_tugas() {
   echo "Tugas Belum   : $belum"
 }
 
+# Main loop
+while true; do
+  show_menu
+  read pilihan
+
+  case $pilihan in
+    1) tambah_tugas ;;
+    2) lihat_tugas ;;
+    3) hapus_tugas ;;
+    4) statistik_tugas ;;
+    5) echo -e "${YELLOW}Keluar dari program...${NC}"; exit 0 ;;
+    *) echo -e "${RED}Pilihan tidak valid!${NC}" ;;
+  esac
+
+  echo "" # Spasi
+done
+
 
 
